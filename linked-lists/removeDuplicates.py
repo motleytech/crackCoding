@@ -1,7 +1,7 @@
 from llist import LinkedList, Node
 from random import randint
 
-def createList(N, M):
+def createRandomList(N, M):
     '''
     Create a linked list containing N nodes,
     and each node consisting of a random number upto M
@@ -17,7 +17,6 @@ def removeDuplicates(lst):
     '''
     visited = set()
     prev = None
-    toRemove = set()
     for node in lst:
         if node.data in visited:
             lst.remove(node, prev)
@@ -29,7 +28,7 @@ def numDupes(lst):
     nodeList = [node.data for node in lst]
     return len(nodeList) - len(set(nodeList))
 
-lst = createList(100, 100)
+lst = createRandomList(100, 100)
 print "The list currently has %s duplicates" % numDupes(lst)
 removeDuplicates(lst)
 print "The list now has %s duplicates" % numDupes(lst)
