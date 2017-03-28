@@ -14,7 +14,6 @@ def estimateOrder(func, inputDataFunc, sizes=None, numRuns=None):
     TODO: upgrade this method to use non-linear least squares
     so we can estimate non-polynomial orders like O(n log n) and O(2^n)
     '''
-
     # we should run the function for different input sizes and note
     # the average time for random inputs of those sizes
     # now, we have a table to input size vs time
@@ -33,15 +32,12 @@ def estimateOrder(func, inputDataFunc, sizes=None, numRuns=None):
         runTime = timeit.timeit("_funcBeingEstimated_()", number=numRuns)
         runtimeData.append(runTime)
 
-
-    result = polyfit(sizes, runtimeData, 4)
-
-    print result
-
-    print runtimeData
-
-    print [polyval(x, result) for x in sizes]
-
+    # choose fit with good enough relative error
+    for order in range(1, 4):
+        result = polyfit(sizes, runtimeData, order, full=True)
+        coeff, valList = result
+        residuals, rank, s_val, rcond = valList
+        print (order, residuals)
 
 
 def doit(N):
@@ -51,4 +47,4 @@ def doit(N):
             result += y
     return result
 
-estimateOrder(doit, lambda x: x, [100, 200, 400, 800, 1600, 3200, 6400], 20)
+estimateOrder(doit, lambda x: x, [10, 20, 40, 80, 160, 320, 640, 1280, 2560], 50)
