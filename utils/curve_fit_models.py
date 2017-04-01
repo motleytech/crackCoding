@@ -23,6 +23,15 @@ def jac0(t, x, y):
     J[:, 0] = 1
     return J
 
+def algo0(size):
+    # this should be a constant time algorithm
+    # as it has nothing to do with the input data
+    dummy = []
+    for x in range(100):
+        for y in range(20):
+            dummy.append((x, y))
+    return None
+
 
 #####################
 #
@@ -40,6 +49,19 @@ def jac1(t, x, y):
     J[:, 0] = 1
     J[:, 1] = np.log2(x)
     return J
+
+def algo1(size):
+    # we need a log(n) algo
+    # we will create a loop that loops log(n) times!!
+    # we could muck about with binary search, but then, that's log(n) in the worst case
+    # sure the average case is also almost log(n), but we would like a little cleaner data
+    from math import log
+    n = int(log(size, 2))
+    result = 0
+    for x in range(n):
+        for y in range(100):
+            result = y + x
+    return None
 
 
 #####################
@@ -59,6 +81,16 @@ def jac2(t, x, y):
     J[:, 1] = np.log2(x)
     J[:, 2] = np.sqrt(x)
     return J
+
+def algo2(size):
+    # we need a O(sqrt(n)) algo
+    import math
+    n = int(math.sqrt(size))
+    result = 0
+    for x in range(n):
+        for y in range(100):
+            result = y + x
+    return None
 
 
 #####################
@@ -80,6 +112,15 @@ def jac3(t, x, y):
     J[:, 2] = np.sqrt(x)
     J[:, 3] = x
     return J
+
+def algo3(size):
+    # we need a O(n) algo
+    n = size
+    result = 0
+    for x in range(n):
+        for y in range(100):
+            result = y + x
+    return None
 
 
 #####################
@@ -105,6 +146,16 @@ def jac4(t, x, y):
     J[:, 3] = x
     J[:, 4] = x * lgx
     return J
+
+def algo4(size):
+    # we need a O(n log n) algo
+    import math
+    n = int(size * math.log(size, 2))
+    result = 0
+    for x in range(n):
+        for y in range(100):
+            result = y + x
+    return None
 
 
 #####################
@@ -133,6 +184,16 @@ def jac5(t, x, y):
     J[:, 4] = x * lgx
     J[:, 5] = x * sqx
     return J
+
+def algo5(size):
+    # we need a O(n sqrt(n)) algo
+    import math
+    n = int(size * math.sqrt(size))
+    result = 0
+    for x in range(n):
+        for y in range(100):
+            result = y + x
+    return None
 
 
 #####################
@@ -164,6 +225,15 @@ def jac6(t, x, y):
     J[:, 5] = x * sqx
     J[:, 6] = x * x
     return J
+
+def algo6(size):
+    # we need a O(n^2) algo
+    n = size * size
+    result = 0
+    for x in range(n):
+        for y in range(100):
+            result = y + x
+    return None
 
 
 #####################
@@ -199,6 +269,16 @@ def jac7(t, x, y):
     J[:, 7] = xx * lgx
     return J
 
+def algo7(size):
+    # we need a O(n^2 log(n)) algo
+    import math
+    n = int(size * size * math.log(size, 2))
+    result = 0
+    for x in range(n):
+        for y in range(100):
+            result = y + x
+    return None
+
 
 #####################
 #
@@ -233,6 +313,16 @@ def jac8(t, x, y):
     J[:, 7] = xx * lgx
     J[:, 8] = xx * sqx
     return J
+
+def algo8(size):
+    # we need a O(n^2 sqrt(n)) algo
+    import math
+    n = int(size * size * math.sqrt(size))
+    result = 0
+    for x in range(n):
+        for y in range(100):
+            result = y + x
+    return None
 
 
 #####################
@@ -274,8 +364,19 @@ def jac10(t, x, y):
     J[:, 10] = t[9] * x * xxp
     return J
 
+def algo10(size):
+    # we need a O(e^n) algo
+    import math
+    n = int(math.exp(size))
+    result = 0
+    for x in range(n):
+        for y in range(100):
+            result = y + x
+    return None
+
 
 models = [
+    (model0, func0, jac0, 1),
     (model1, func1, jac1, 2),
     (model2, func2, jac2, 3),
     (model3, func3, jac3, 4),
@@ -285,4 +386,17 @@ models = [
     (model7, func7, jac7, 8),
     (model8, func8, jac8, 9),
     (model10, func10, jac10, 11)
+]
+
+algos = [
+    algo0,
+    algo1,
+    algo2,
+    algo3,
+    algo4,
+    algo5,
+    algo6,
+    algo7,
+    algo8,
+    algo10,
 ]
