@@ -1,4 +1,7 @@
+'''definitions for LinkedList and Node classes'''
+
 class Node(object):
+    '''the class for the list node object'''
     def __init__(self, data):
         self.data = data
         self.next = None
@@ -9,7 +12,12 @@ class Node(object):
     def __str__(self):
         return self.__repr__()
 
+    def copy(self, other):
+        '''copy data from other node to this one'''
+        self.data = other.data
+
 class LinkedList(object):
+    '''the linked list class'''
     def __init__(self):
         self.head = None
         self.tail = None
@@ -25,7 +33,7 @@ class LinkedList(object):
             self.tail.next = node
             self.tail = node
         node.next = None
-        self.count -= 1
+        self.count += 1
         return self
 
     def remove(self, node, prev=None):
@@ -87,3 +95,17 @@ class LinkedList(object):
         while curr:
             yield curr
             curr = curr.next
+
+    def __len__(self):
+        return self.count
+
+
+def createRandomList(N, M):
+    '''
+    Create a linked list containing N nodes,
+    and each node consisting of a random number upto M
+    '''
+    from random import randint
+    newList = LinkedList()
+    _ = [newList.add(Node(randint(1, M+1))) for _ in range(N)]
+    return newList

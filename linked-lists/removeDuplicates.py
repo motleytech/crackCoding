@@ -1,20 +1,13 @@
+# pylint: disable=C0103
+
 '''Implements duplicate removal from linked lists'''
 
-from random import randint
-from llist import LinkedList, Node
-
-def createRandomList(N, M):
-    '''
-    Create a linked list containing N nodes,
-    and each node consisting of a random number upto M
-    '''
-    newList = LinkedList()
-    ignore = [newList.add(Node(randint(1, M+1))) for _ in range(N)]
-    return newList
+from llist import createRandomList
 
 def removeDuplicates(inList):
     '''
     remove duplicates nodes from a linked list
+    using a set to keep track of seen items
     '''
     visited = set()
     prev = None
@@ -24,6 +17,24 @@ def removeDuplicates(inList):
         else:
             visited.add(node.data)
             prev = node
+
+def remDupesWOBuffer(inList):
+    '''
+    remove duplicates without using extra storge
+    for each element, traverse the list and remove any duplicates
+    '''
+    curr = inList.head
+    while curr != None:
+        nxt = curr.next
+        prev = curr
+        while nxt != None:
+            if nxt.data == curr.data:
+                inList.remove(nxt, prev)
+                nxt = nxt.next
+            else:
+                prev = nxt
+                nxt = nxt.next
+        curr = curr.next
 
 
 def numDupes(inList):
@@ -37,4 +48,10 @@ def numDupes(inList):
 lst = createRandomList(100, 100)
 print "The list currently has %s duplicates" % numDupes(lst)
 removeDuplicates(lst)
+print "The list now has %s duplicates" % numDupes(lst)
+
+lst = createRandomList(100, 100)
+print "The list currently has %s duplicates" % numDupes(lst)
+remDupesWOBuffer(lst)
+print len(lst)
 print "The list now has %s duplicates" % numDupes(lst)
