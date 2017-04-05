@@ -36,7 +36,6 @@ def remDupesWOBuffer(inList):
                 nxt = nxt.next
         curr = curr.next
 
-
 def numDupes(inList):
     '''
     Count the number of duplicates in the list
