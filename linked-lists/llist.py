@@ -27,6 +27,8 @@ class LinkedList(object):
         '''
         add a node to the end of the linked list
         '''
+        if not isinstance(node, Node):
+            node = Node(node)
         if self.tail is None:
             self.head = self.tail = node
         else:

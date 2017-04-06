@@ -34,8 +34,7 @@ print slist
 
 def listToNum(lst):
     lst = reversed([n.data for n in lst])
-    res = reduce(lambda a, b: a*10 + b, lst, 0)
-    return res
+    return reduce(lambda a, b: a*10 + b, lst, 0)
 
 def testSumLists(lst1, lst2, sm):
     res1, res2 , ress = map(listToNum, [lst1, lst2, sm])
