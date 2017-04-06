@@ -36,6 +36,21 @@ class LinkedList(object):
         self.count += 1
         return self
 
+    def insertAtHead(self, node):
+        if self.head is None:
+            self.add(node)
+            return self
+        node.next = self.head
+        self.head = node
+        self.count += 1
+        return self
+
+    def insertAtNode(self, node, target):
+        assert(target is not None)
+        node.next = target.next
+        target.next = node
+        return self
+
     def remove(self, node, prev=None):
         '''
         Remove the given node from the list
@@ -98,6 +113,19 @@ class LinkedList(object):
 
     def __len__(self):
         return self.count
+
+    def getHead(self):
+        return self.head
+
+    def getTail(self):
+        return self.tail
+
+    def createCopy(self):
+        newList = LinkedList()
+        for node in self:
+            newNode = Node(node.data)
+            newList.add(newNode)
+        return newList
 
 
 def createRandomList(N, M):
