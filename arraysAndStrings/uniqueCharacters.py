@@ -1,11 +1,14 @@
 '''
-method to check if the given string has all unique chars
+determine if a string has all unique characters
+
+1. Solve it.
+2. Solve it without using extra storage.
 '''
 
 def hasUniqueChars(s):
     '''
     checks if a string is composed of unique characters
-    (uses a set)
+    (using a set to store seen characters)
     '''
     existing = set()
     for c in s:
@@ -17,7 +20,9 @@ def hasUniqueChars(s):
 def hasUniqueCharsNoBuf(s):
     '''
     checks if a string consists of unique characters
-    This version uses no extra storage (like a set or dict(hashmap))
+    This version uses no extra storage.
+    Works by iterating over characters and comparing each character with
+    all the others to make sure none other matches.
     '''
     ls = len(s)
     for x in range(ls - 1):
@@ -27,11 +32,20 @@ def hasUniqueCharsNoBuf(s):
     return True
 
 def testMethod(func):
-    huc = func
-    assert(huc('abcde') == True)
-    assert(huc('abcdea') == False)
-    assert(huc('aa') == False)
-    print 'test passed: %s' % func.__name__
+    '''
+    test unique checking methods
+    '''
+    print 'Testing %s: ' % func.__name__,
+
+    assert func('') == True
+    assert func('aa') == False
+    assert func('abcde') == True
+    assert func('abcdea') == False
+    assert func('aagdjflk') == False
+    assert func('gdjfklaa') == False
+    assert func('gdjfjkl') == False
+
+    print 'Passed'
 
 
 testMethod(hasUniqueChars)
