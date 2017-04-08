@@ -3,6 +3,17 @@ determine if a string has all unique characters
 
 1. Solve it.
 2. Solve it without using extra storage.
+
+Key idea: Using a dictionary (hashmap / associative array), we simply iterate
+over the characters, inserting each new one into the dictionary (or set).
+
+Before inserting a character, we check if it already exists in the dictionary/set.
+If it exists, then that character is repeated, and we return False.
+
+If we reach the end of the string while repeating this process, it implies that
+all characters are unique (else we would have returned False at some point).
+
+We return True.
 '''
 
 def hasUniqueChars(s):
@@ -33,20 +44,21 @@ def hasUniqueCharsNoBuf(s):
 
 def testMethod(func):
     '''
-    test unique checking methods
+    test unique verification methods
     '''
     print 'Testing %s: ' % func.__name__,
 
-    assert func('') == True
-    assert func('aa') == False
-    assert func('abcde') == True
-    assert func('abcdea') == False
-    assert func('aagdjflk') == False
-    assert func('gdjfklaa') == False
-    assert func('gdjfjkl') == False
+    assert func('')
+    assert not func('aa')
+    assert func('abcde')
+    assert not func('abcdea')
+    assert not func('aagdjflk')
+    assert not func('gdjfklaa')
+    assert not func('gdjfjkl')
 
     print 'Passed'
 
 
-testMethod(hasUniqueChars)
-testMethod(hasUniqueCharsNoBuf)
+if __name__ == '__main__':
+    testMethod(hasUniqueChars)
+    testMethod(hasUniqueCharsNoBuf)
