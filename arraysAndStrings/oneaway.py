@@ -11,11 +11,14 @@ have one difference.
 '''
 
 def areOneAway(s1, s2):
-
+    '''
+    Returns True if s1 and s2 are just one
+    edit (add, delete or modify one char) away.
+    '''
     s1, s2 = (s1, s2) if len(s1) > len(s2) else (s2, s1)
     ls1, ls2 = map(len, (s1, s2))
     if ls1 == ls2:
-        ndiffs = sum(0 if a==b else 1 for a, b in zip(s1, s2))
+        ndiffs = sum(0 if a == b else 1 for a, b in zip(s1, s2))
         if ndiffs > 1:
             return False
         return True
@@ -36,6 +39,17 @@ def areOneAway(s1, s2):
     return False
 
 
+def test_areOneAway():
+    '''Test for areOneAway method'''
+    print 'Testing areOneAway... ',
+    assert areOneAway('pale', 'ple')
+    assert areOneAway('pales', 'pale')
+    assert not areOneAway('pale', 'bake')
+    assert areOneAway('pale', 'bale')
+    print 'Passed'
 
+
+if __name__ == '__main__':
+    test_areOneAway()
 
 
