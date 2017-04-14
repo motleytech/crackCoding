@@ -46,6 +46,15 @@ def test_areOneAway():
     assert areOneAway('pales', 'pale')
     assert not areOneAway('pale', 'bake')
     assert areOneAway('pale', 'bale')
+
+    assert areOneAway('abcd', 'abc')
+    assert areOneAway('abcd', 'abed')
+    assert areOneAway('abcd', 'abcd')
+    assert not areOneAway('abcd', 'ab')
+    assert areOneAway('', '')
+    assert areOneAway('', 'a')
+    assert not areOneAway('', '  ')
+    assert not areOneAway('a', 'aaa')
     print 'Passed'
 
 
