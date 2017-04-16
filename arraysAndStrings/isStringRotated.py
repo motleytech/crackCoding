@@ -26,6 +26,9 @@ def isRotation(s1, s2):
     return False
 
 def test_isRotation():
+    '''
+    test for isRotation
+    '''
     print 'Testing isRotation...',
 
     assert isRotation('abcd', 'bcda')
@@ -35,9 +38,3 @@ def test_isRotation():
 
 if __name__ == '__main__':
     test_isRotation()
-
-
-
-
-
-
