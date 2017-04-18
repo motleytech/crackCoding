@@ -1,5 +1,5 @@
 '''
-method to retrieve the kth last element of a list
+return the kth last element of a list
 '''
 
 from llist import createRandomList
@@ -19,9 +19,18 @@ def getKthLastElem(inList, k):
         back = back.next
     return back
 
-lst = createRandomList(10, 100)
-nodes = [n.data for n in lst]
-nodes2 = list(reversed([getKthLastElem(lst, x).data for x in range(1, 11)]))
+def test_getKthLastElem(func):
+    '''
+    test for getKthLastElem method
+    '''
+    print 'Testing %s... ' % func.__name__,
 
-assert nodes == nodes2
-print "success!!"
+    lst = createRandomList(10, 100)
+    nodes = [n.data for n in lst]
+    nodes2 = list(reversed([getKthLastElem(lst, x).data for x in range(1, 11)]))
+
+    assert nodes == nodes2
+    print "Passed."
+
+if __name__ == '__main__':
+    test_getKthLastElem(getKthLastElem)
