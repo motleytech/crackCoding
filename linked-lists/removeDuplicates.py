@@ -44,8 +44,11 @@ def numDupes(inList):
     return len(nodeList) - len(set(nodeList))
 
 
-def test_remDupes():
-    print 'Testing RemoveDuplicates... ',
+def test_remDupes(func):
+    '''
+    test for remove duplicates method
+    '''
+    print 'Testing %s... ' % func.__name__,
 
     lst = createRandomList(100, 100)
     ndupes = numDupes(lst)
@@ -54,20 +57,11 @@ def test_remDupes():
         ndupes = numDupes(lst)
     assert ndupes != 0
 
-    removeDuplicates(lst)
-    assert numDupes(lst) == 0
-
-    lst = createRandomList(100, 100)
-    ndupes = numDupes(lst)
-    while ndupes == 0:
-        lst = createRandomList(100, 100)
-        ndupes = numDupes(lst)
-    assert ndupes != 0
-
-    remDupesWOBuffer(lst)
+    func(lst)
     assert numDupes(lst) == 0
 
     print 'Passed.'
 
 if __name__ == '__main__':
-    test_remDupes()
+    test_remDupes(removeDuplicates)
+    test_remDupes(remDupesWOBuffer)
