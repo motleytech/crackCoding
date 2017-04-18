@@ -1,6 +1,6 @@
-# pylint: disable=C0103
-
-'''Implements duplicate removal from linked lists'''
+'''
+Remove duplicate entries from a linked list
+'''
 
 from llist import createRandomList
 
@@ -20,8 +20,8 @@ def removeDuplicates(inList):
 
 def remDupesWOBuffer(inList):
     '''
-    remove duplicates without using extra storge
-    for each element, traverse the list and remove any duplicates
+    Remove duplicates without using extra storge.
+    For each element, traverse the list and remove any duplicates
     '''
     curr = inList.head
     while curr != None:
@@ -44,13 +44,30 @@ def numDupes(inList):
     return len(nodeList) - len(set(nodeList))
 
 
-lst = createRandomList(100, 100)
-print "The list currently has %s duplicates" % numDupes(lst)
-removeDuplicates(lst)
-print "The list now has %s duplicates" % numDupes(lst)
+def test_remDupes():
+    print 'Testing RemoveDuplicates... ',
 
-lst = createRandomList(100, 100)
-print "The list currently has %s duplicates" % numDupes(lst)
-remDupesWOBuffer(lst)
-print len(lst)
-print "The list now has %s duplicates" % numDupes(lst)
+    lst = createRandomList(100, 100)
+    ndupes = numDupes(lst)
+    while ndupes == 0:
+        lst = createRandomList(100, 100)
+        ndupes = numDupes(lst)
+    assert ndupes != 0
+
+    removeDuplicates(lst)
+    assert numDupes(lst) == 0
+
+    lst = createRandomList(100, 100)
+    ndupes = numDupes(lst)
+    while ndupes == 0:
+        lst = createRandomList(100, 100)
+        ndupes = numDupes(lst)
+    assert ndupes != 0
+
+    remDupesWOBuffer(lst)
+    assert numDupes(lst) == 0
+
+    print 'Passed.'
+
+if __name__ == '__main__':
+    test_remDupes()
