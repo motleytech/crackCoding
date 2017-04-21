@@ -3,7 +3,7 @@ method to order/partition a list based on a pivot
 into items smaller than the pivot and >= to the pivot
 '''
 
-from llist import createRandomList, LinkedList
+from llist import createRandomList
 
 def partition(lst, x):
     '''
@@ -80,17 +80,17 @@ def test_partition(func):
     print 'Testing %s... ' % func.__name__,
     lst = createRandomList(20, 20)
     func(lst, 10)
-    lst = list(x for x in lst)
+    nlst = list(x for x in lst)
 
     # make sure the list is partitioned correctly
     index = 0
-    while index < len(lst):
-        if lst[index] >= 10:
+    while index < len(nlst):
+        if nlst[index] >= 10:
             break
         index += 1
 
-    while index < len(lst):
-        assert lst[index] >= 10
+    while index < len(nlst):
+        assert nlst[index] >= 10
         index += 1
 
     print 'Passed'
