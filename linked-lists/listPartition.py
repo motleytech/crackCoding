@@ -6,6 +6,16 @@ into items smaller than the pivot and >= to the pivot
 from llist import createRandomList, LinkedList
 
 def partition(lst, x):
+    '''
+    partition a list based on the pivot x
+
+    works by iterating throught the nodes, and if node is <x,
+    we move node to the beginning of the list.
+
+    This method switches the order of elements <x in the list
+    (if elements a, b are both <x and occur in a particular order,
+    their order will be reversed in the partitioned list)
+    '''
     head = lst.getHead()
     if head is None:
         # nothing in the list to partition
@@ -28,7 +38,17 @@ def partition(lst, x):
     return lst
 
 def partition2(lst, x):
-    assert(isinstance(lst, LinkedList))
+    '''
+    another way to partition list based on pivot x
+
+    works by skipping elements less than x, then iterating over
+    remaining elements and moving elements <x after the
+    last observed element <x.
+
+    This method keeps the order or elements intact.
+    Useful for implementing stable version of quicksort
+    (if you wanted to do that).
+    '''
     less = None
     curr = lst.getHead()
     prev = None
@@ -53,13 +73,29 @@ def partition2(lst, x):
             curr = curr.next
 
 
-lst = createRandomList(20, 20)
-lst2 = lst.createCopy()
-print lst, "\n\n"
-partition(lst, 10)
-print lst, "\n\n"
+def test_partition(func):
+    '''
+    test for list partition methods
+    '''
+    print 'Testing %s... ' % func.__name__,
+    lst = createRandomList(20, 20)
+    func(lst, 10)
+    lst = list(x for x in lst)
 
-print lst2, "\n\n"
-partition2(lst2, 10)
-print lst2, "\n\n"
+    # make sure the list is partitioned correctly
+    index = 0
+    while index < len(lst):
+        if lst[index] >= 10:
+            break
+        index += 1
 
+    while index < len(lst):
+        assert lst[index] >= 10
+        index += 1
+
+    print 'Passed'
+
+
+if __name__ == '__main__':
+    test_partition(partition)
+    test_partition(partition2)

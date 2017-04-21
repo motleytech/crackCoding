@@ -27,7 +27,7 @@ def test_getKthLastElem(func):
 
     lst = createRandomList(10, 100)
     nodes = [n.data for n in lst]
-    nodes2 = list(reversed([getKthLastElem(lst, x).data for x in range(1, 11)]))
+    nodes2 = list(reversed([func(lst, x).data for x in range(1, 11)]))
 
     assert nodes == nodes2
     print "Passed."
