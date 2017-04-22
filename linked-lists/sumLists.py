@@ -1,7 +1,13 @@
+'''
+return the sum of 2 lists where each node corresponds to a digit
+'''
 
 from llist import LinkedList, Node, createRandomList
 
 def sumLists(lst1, lst2):
+    '''
+    find sum of the input lists and output as a list
+    '''
     curr1, curr2 = lst1.head, lst2.head
     result = LinkedList()
     carry = 0
@@ -24,25 +30,26 @@ def sumLists(lst1, lst2):
         rem = rem.next
     return result
 
-lst1 = createRandomList(4, 8)
-lst2 = createRandomList(5, 8)
-
-print lst1
-print lst2
-slist = sumLists(lst1, lst2)
-print slist
 
 def listToNum(lst):
+    '''
+    convert list to a number
+    '''
     lst = reversed([n.data for n in lst])
     return reduce(lambda a, b: a*10 + b, lst, 0)
 
-def testSumLists(lst1, lst2, sm):
-    res1, res2 , ress = map(listToNum, [lst1, lst2, sm])
-    assert(res1 + res2 == ress)
+def testSumLists():
+    '''
+    test for sumLists method
+    '''
+    lst1 = createRandomList(4, 8)
+    lst2 = createRandomList(5, 8)
+
+    slist = sumLists(lst1, lst2)
+
+    res1, res2, ress = map(listToNum, [lst1, lst2, slist])
+    assert res1 + res2 == ress
     print "test passed"
 
-testSumLists(lst1, lst2, slist)
-
-
-
-
+if __name__ == '__main__':
+    testSumLists()

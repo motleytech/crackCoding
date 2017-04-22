@@ -39,6 +39,9 @@ class LinkedList(object):
         return self
 
     def insertAtHead(self, node):
+        '''
+        insert node at head
+        '''
         if self.head is None:
             self.add(node)
             return self
@@ -48,7 +51,10 @@ class LinkedList(object):
         return self
 
     def insertAtNode(self, node, target):
-        assert(target is not None)
+        '''
+        insert node right after target
+        '''
+        assert target is not None
         node.next = target.next
         target.next = node
         return self
@@ -117,12 +123,21 @@ class LinkedList(object):
         return self.count
 
     def getHead(self):
+        '''
+        return the head node of the list (or none)
+        '''
         return self.head
 
     def getTail(self):
+        '''
+        return the tail node of the list (or none)
+        '''
         return self.tail
 
     def createCopy(self):
+        '''
+        create and return a copy of this linked list
+        '''
         newList = LinkedList()
         for node in self:
             newNode = Node(node.data)
