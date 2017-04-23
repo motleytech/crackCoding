@@ -1,6 +1,14 @@
 '''
 check if the given linked lists intersect
 return the intersection point
+
+Lists intersect if the last node is the same.
+To find intersection point (first common node), find length
+of both lists... if the smaller list has n nodes and the longer
+one has m nodes, then the first intersecting node must be in
+the last n nodes of the longer list. Skip the first m-n nodes in
+the longer list, then traverse the lists together comparing each node.
+Running time O(m+n)
 '''
 
 from llist import LinkedList, Node
@@ -19,19 +27,23 @@ def getTailAndCount(lst):
 
     return curr, count
 
-def getFirstCommonNode(lst1, lst2):
+def getFirstCommonNode(lst1, count1, lst2, count2):
     '''
     Return the first common nodes between the lists
     '''
-    head1, head2 = lst1.getHead(), lst2.getHead()
-    curr = head1
-    while curr is not None:
-        curr2 = head2
-        while curr2 is not None:
-            if curr2 is curr:
-                return curr
-            curr2 = curr2.next
-        curr = curr.next
+    curr1, curr2 = lst1.getHead(), lst2.getHead()
+
+    for ignore in range(max(0, count1 - count2)):
+        curr1 = curr1.next
+    for ignore in range(max(0, count2 - count1)):
+        curr2 = curr2.next
+
+    while curr1 is not None:
+        if curr1 is curr2:
+            return curr1
+        curr1 = curr1.next
+        curr2 = curr2.next
+
     raise Exception("Common node not found.")
 
 def areIntersecting(lst1, lst2):
@@ -47,14 +59,7 @@ def areIntersecting(lst1, lst2):
     if tail1 is not tail2:
         return False, None
 
-    if count1 < count2:
-        node = getFirstCommonNode(lst1, lst2)
-    else:
-        node = getFirstCommonNode(lst2, lst1)
-
-    if node:
-        return True, node
-    return False, None
+    return True, getFirstCommonNode(lst1, count1, lst2, count2)
 
 
 def test_areIntersecting():
