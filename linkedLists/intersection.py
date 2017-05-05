@@ -72,7 +72,7 @@ def test_areIntersecting():
     lst2 = LinkedList().add(Node(4)).add(Node(5))
 
     intersecting, node = areIntersecting(lst1, lst2)
-    assert intersecting == False
+    assert not intersecting
     assert node is None
 
     lst2.tail.next = node2

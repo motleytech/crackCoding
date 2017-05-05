@@ -1,5 +1,6 @@
 '''
-Given two strings, check if one is a permutation of the other. Permutations of this kind are also called anagrams.
+Given two strings, check if one is a permutation of the other. Permutations of
+this kind are also called anagrams.
 
 The idea is to create a character freq map (using a dict) of the two strings
 and compare them.
@@ -13,11 +14,13 @@ from collections import defaultdict
 def createFreqMap(s, ignoreSpaces=True):
     '''
     create a freq map of the characters occuring in s
-
     '''
-    fmap = defaultdict(lambda : 0)
+    fmap = defaultdict(lambda: 0)
     for c in s:
-        if c != ' ':
+        if ignoreSpaces:
+            if c != ' ':
+                fmap[c] += 1
+        else:
             fmap[c] += 1
     return fmap
 
@@ -47,12 +50,13 @@ def testIsPerm():
     '''
     test for our implementation
     '''
-    assert isPermutation('abcd', 'cdba') == True
-    assert isPermutation('bbbb', 'bbbb') == True
-    assert isPermutation('ab', 'ba') == True
-    assert isPermutation('abcd', 'cdbae') == False
-    assert isPermutation('abcd', 'cdbe') == False
+    assert isPermutation('abcd', 'cdba')
+    assert isPermutation('bbbb', 'bbbb')
+    assert isPermutation('ab', 'ba')
+    assert not isPermutation('abcd', 'cdbae')
+    assert not isPermutation('abcd', 'cdbe')
     assert isPermutation('tom marvolo riddle', 'i am lord voldemort')
     print 'test passed'
 
-testIsPerm()
+if __name__ == '__main__':
+    testIsPerm()
