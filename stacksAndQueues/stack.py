@@ -42,3 +42,4 @@ class Stack(LinkedList):
         returns true if stack is empty
         '''
         return len(self) == 0
+
