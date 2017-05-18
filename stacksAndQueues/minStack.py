@@ -42,10 +42,13 @@ class MinStack(object):
 
 if __name__ == '__main__':
     import unittest
-    from exceptions import Exception
 
     class MyTest(unittest.TestCase):
+        '''
+        Tests for the MinStack class
+        '''
         def test1(self):
+            '''test it'''
             ms = MinStack()
             self.assertRaises(Exception, ms.min)
             self.assertRaises(Exception, ms.pop)
