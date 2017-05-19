@@ -1,17 +1,12 @@
-from time import time
+marbles = {
+    0: 'white',
+    1: 'red',
+    2: 'red',
+    3: 'white',
+    4: 'red'
+}
 
-st = time()
-digits = set(str(x) for x in range(1, 10))
-nums = range(10000, 31623)
+from itertools import permutations
 
-for x in nums:
-    if len(digits.difference(set(str(x*x)))) == 0:
-        print x, x*x
-        break
+for x in permutations(range(5)):
 
-for x in reversed(nums):
-    if len(digits.difference(set(str(x*x)))) == 0:
-        print x, x*x
-        break
-
-print '\nElapsed time : %10.6f' % (time() - st)

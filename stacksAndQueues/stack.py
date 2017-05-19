@@ -28,6 +28,7 @@ class Stack(LinkedList):
         '''
         node = Node(value)
         self.insertAtHead(node)
+        return self
 
     def peek(self):
         '''
