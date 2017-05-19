@@ -13,12 +13,18 @@ class Queue(LinkedList):
         node = Node(item)
         LinkedList.add(self, node)
 
+    def push(self, item):
+        return self.add(item)
+
     def remove(self):
         if len(self) < 1:
             raise Exception("Cannot remove from empty Queue")
         node = self.head
-        LinkedList.remove(node)
+        LinkedList.remove(self, node)
         return node.data
+
+    def pop(self):
+        return self.remove()
 
     def peek(self):
         if len(self) < 1:
