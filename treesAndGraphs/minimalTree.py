@@ -13,6 +13,9 @@ class Node(object):
         self.data = data
         self.left = self.right = None
 
+    def __str__(self):
+        return str(self.data)
+
 
 def lp2(n):
     return pow(2, int(math.log(n, 2) + 0.001))
@@ -39,12 +42,11 @@ def createTree(data, index, jumpValue, node=None):
     return node
 
 
-N = 10
-print 'max power of 2 : %s' % lp2(N)
-tree = createTree(range(0, N), lp2(N) - 1, lp2(N)/2)
-
-def printTree(tree):
-    # tbd
-    pass
+if __name__ == '__main__':
+    N, M = 0, 41
+    print 'max power of 2 : %s' % lp2(M-N)
+    tree = createTree(range(N, M), lp2(M-N) - 1, lp2(M-N)/2)
+    from printTree import printTree
+    printTree(tree)
 
 
