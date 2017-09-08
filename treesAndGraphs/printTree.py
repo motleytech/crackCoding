@@ -1,10 +1,7 @@
-
+'''function to print a binary tree to the console'''
 
 def printTree(tree):
-    height = 0 # height of tree
-    mnnl = 0 # max node name length
-
-    height = findHeight(tree)
+    '''prints a binary tree'''
     names = getNodeNames(tree)
     maxNameLen = max(len(x) for x in names)
     nodeLists = getNodeNameLists(tree, maxNameLen)
@@ -26,7 +23,10 @@ def printTree(tree):
 
 
 def getNodeNameLists(tree, mnl):
-    level = 0
+    '''returns node names in the tree in the order or levels
+       as a list of lists (each list contains node names from
+       a level)
+    '''
     nLists = []
     toVisit = [tree]
     while len(toVisit) > 0:
@@ -51,25 +51,11 @@ def getNodeNameLists(tree, mnl):
     return nLists
 
 
-
-
-def findHeight(tree):
-    maxHeight = [1]
-    def dfs(node, height):
-        if node.left or node.right:
-            height = height + 1
-            if height > maxHeight[0]:
-                maxHeight[0] = height
-        if node.left:
-            dfs(node.left, height)
-        if node.right:
-            dfs(node.right, height)
-    dfs(tree, 1)
-    return maxHeight[0]
-
 def getNodeNames(tree):
+    '''returns a set of all node names from the tree'''
     data = set()
     def dfs(node, height):
+        '''depth first search for getting node names'''
         data.add(str(node.data))
         if node.left:
             dfs(node.left, height)
@@ -83,6 +69,6 @@ if __name__ == '__main__':
     N, M = 0, 41
     from minimalTree import lp2, createTree
     print 'max power of 2 : %s' % lp2(M-N)
-    tree = createTree(range(N, M), lp2(M-N) - 1, lp2(M-N)/2)
-    printTree(tree)
+    tree1 = createTree(range(N, M), lp2(M-N) - 1, lp2(M-N)/2)
+    printTree(tree1)
 
