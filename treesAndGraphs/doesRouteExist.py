@@ -1,9 +1,11 @@
-# Given a directed graph, design an algorithm to find out whether there is a route between two nodes.
+'''Given a directed graph, design an algorithm to
+find out whether there is a route between two nodes.'''
 
 from Queue import Queue
 from logging import error
 
 def bfs(graph, a, b):
+    'breadth first search which returns shortest path'
     if a == b: # same nodes, so path is trivial
         return True, [a]
 
@@ -36,6 +38,8 @@ def bfs(graph, a, b):
 
 
 def computePath(a, b, previous):
+    '''given nodes a and b and a map of previous nodes
+    visited in the bfs, returns path from a to b'''
     path = [b]
     prev = previous.get(b, None)
     while prev and prev != a:
@@ -61,5 +65,5 @@ def routeExists(graph, a, b):
 if __name__ == '__main__':
     from treeAndGraph import DirectedGraph
     edges = [(1, 2), (2, 3), (3, 1)]
-    graph = DirectedGraph(edges)
-    print bfs(graph, 2, 1)
+    graph1 = DirectedGraph(edges)
+    print bfs(graph1, 2, 1)

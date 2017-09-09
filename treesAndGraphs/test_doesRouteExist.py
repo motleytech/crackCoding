@@ -1,9 +1,13 @@
+'Tests for doesRouteExist.py file'
+
+# pylint: skip-file
 
 from doesRouteExist import routeExists
 from treeAndGraph import DirectedGraph
 import unittest
 
 class RouteExistsTests(unittest.TestCase):
+    '''test class'''
     def test_trivial0(self):
         edges = []
         graph = DirectedGraph(edges)
