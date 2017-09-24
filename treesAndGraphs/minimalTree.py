@@ -27,9 +27,11 @@ def createTree(data, index, jumpValue, node=None):
     given sorted list'''
     if not node:
         node = Node(data[index])
+        node.parent = None
     if jumpValue >= 1:
         nodel = Node(data[index-jumpValue])
         node.left = nodel
+        nodel.parent = node
         createTree(data, index-jumpValue, jumpValue/2, nodel)
 
         while jumpValue > 0 and index + jumpValue >= len(data):
@@ -38,6 +40,7 @@ def createTree(data, index, jumpValue, node=None):
             return
         noder = Node(data[index+jumpValue])
         node.right = noder
+        noder.parent = node
         createTree(data, index+jumpValue, jumpValue/2, noder)
     return node
 
