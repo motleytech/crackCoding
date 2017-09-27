@@ -6,8 +6,9 @@ import math
 
 class Node(object):
     '''the binary tree node class'''
-    def __init__(self, data):
+    def __init__(self, data, parent=None):
         self.data = data
+        self.parent = parent
         self.left = self.right = None
 
     def __str__(self):
@@ -37,7 +38,7 @@ def createTree(data, index, jumpValue, node=None):
         while jumpValue > 0 and index + jumpValue >= len(data):
             jumpValue = jumpValue / 2
         if jumpValue == 0:
-            return
+            return node
         noder = Node(data[index+jumpValue])
         node.right = noder
         noder.parent = node
