@@ -16,7 +16,6 @@ def nextNumSameOnes(n):
     while c1 < seql and seq[-c1-1] == '1':
         c1 += 1
 
-    print c0, c1, seql
     if c1 == seql:
         res = '1'
     else:
@@ -49,7 +48,6 @@ def prevNumSameOnes(n):
     while c0 < seql and seq[-c0-1] == '0':
         c0 += 1
 
-    print c1, c0, seql
     if c0 == seql - 1:
         res = '1'
     else:
@@ -72,6 +70,10 @@ def test_nextNumSameOnes():
     print bin(n)[2:]
     res = prevNumSameOnes(n)
     print res
+
+    for x in range(1, 10000):
+        assert x == int(prevNumSameOnes(int(nextNumSameOnes(x), 2)), 2)
+    print 'Test passed'
 
 if __name__ == '__main__':
     test_nextNumSameOnes()
