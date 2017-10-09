@@ -3,6 +3,7 @@
 from Queue import Queue
 
 def fillPaint(grid, x, y, color):
+    'starting from x,y fills matching pixels in grid with color'
     toVisit = Queue()
     toVisit.put((x, y))
     oColor = grid[x][y]
@@ -10,7 +11,6 @@ def fillPaint(grid, x, y, color):
     while not toVisit.empty():
         a, b = toVisit.get()
         grid[a][b] = color
-
 
         if a < (len(grid)-1) and grid[a+1][b] == oColor:
             toVisit.put((a+1, b))
@@ -26,17 +26,18 @@ def fillPaint(grid, x, y, color):
             toVisit.put((a, b-1))
 
 def test_fillPaint():
-    grid = [[0]*5 for x in range(5)]
+    'test for fillPaint method'
+    grid = [[0]*5 for _ in range(5)]
     fillPaint(grid, 0, 0, 1)
 
     assert grid[3][3] == 1
     assert sum(sum(x) for x in grid) == 25
 
-    grid = [[0]*5 for x in range(5)]
+    grid = [[0]*5 for _ in range(5)]
     fillPaint(grid, 3, 3, 1)
 
     assert grid[0][0] == 1
-    assert sum(sum(x) for x in grid) == 25
+    assert sum(sum(_) for _ in grid) == 25
 
     print 'Test passed'
 
