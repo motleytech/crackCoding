@@ -28,10 +28,12 @@ def fillPaint(grid, x, y, color):
 def test_fillPaint():
     'test for fillPaint method'
     grid = [[0]*5 for _ in range(5)]
+    grid[2][2] = 5
     fillPaint(grid, 0, 0, 1)
 
+
     assert grid[3][3] == 1
-    assert sum(sum(x) for x in grid) == 25
+    assert sum(sum(x) for x in grid) == 29
 
     grid = [[0]*5 for _ in range(5)]
     fillPaint(grid, 3, 3, 1)
