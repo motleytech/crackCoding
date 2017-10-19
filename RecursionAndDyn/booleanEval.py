@@ -32,14 +32,26 @@ def countWays(k, cache2):
     cache2[k] = nways
     return nways
 
+def handleShortcuts(nways, second, res1, op, cache2):
+    'handle the simple case shortcircuits'
+    # use these shortcircuits
+    # 1 |
+    # 0 &
+    if res1[0] == 0 and op == '|':
+        nways[1] += res1[1] * countWays(len(second)/2, cache2)
+        return True
+    elif res1[1] == 0 and op == '&':
+        nways[0] += res1[0] * countWays(len(second)/2, cache2)
+        return True
+    return False
 
 def countBoolEval(exp, cache1, cache2):
     'returns a dict with the numbers of parenthesizations returning 0 or 1'
     if exp in cache1:
         return cache1[exp]
     if len(exp) == 3:
-        res = evaluate(exp)
-        cache1[exp] = {1: res, 0: 0 if res else 1}
+        res1 = evaluate(exp)
+        cache1[exp] = {1: res1, 0: 0 if res1 else 1}
         return cache1[exp]
     else:
         numOps = len(exp) / 2
@@ -50,41 +62,25 @@ def countBoolEval(exp, cache1, cache2):
             if len(first) > len(second):
                 first, second = second, first
             if len(first) == 1:
-                if first == '1':
-                    res1 = {1: 1, 0: 0}
-                else:
-                    res1 = {1: 0, 0: 1}
+                res1 = {1: int(first), 0: 1 - int(first)}
             else:
-                # evaluate first and second and merge results
                 res1 = countBoolEval(first, cache1, cache2)
 
-            # use these shortcircuits
-            # 1 |
-            # 0 &
-            done = False
-            if res1[0] == 0 and op == '|':
-                nways[1] += res1[1] * countWays(len(second)/2, cache2)
-                done = True
-            elif res1[1] == 0 and op == '&':
-                nways[0] += res1[0] * countWays(len(second)/2, cache2)
-                done = True
-            if done:
+            if handleShortcuts(nways, second, res1, op, cache2):
                 continue
 
             res2 = countBoolEval(second, cache1, cache2)
-            res1c, res2c = sum(res1.values()), sum(res2.values())
+            tways = sum(res1.values()) * sum(res2.values())
             if op == '|':
-                bothzero = res1[0] * res2[0]
-                nways[0] += bothzero
-                nways[1] += res1c * res2c - bothzero
+                nways[0] += res1[0] * res2[0]
+                nways[1] += tways - res1[0] * res2[0]
             elif op == '&':
-                bothone = res1[1] * res2[1]
-                nways[1] += bothone
-                nways[0] += res1c * res2c - bothone
+                nways[1] += res1[1] * res2[1]
+                nways[0] += tways - res1[1] * res2[1]
             elif op == '^':
                 bothsame = res1[0] * res2[0] + res1[1] * res2[1]
                 nways[0] += bothsame
-                nways[1] += res1c * res2c - bothsame
+                nways[1] += tways - bothsame
         cache2[exp] = nways
         return nways
 
