@@ -1,4 +1,7 @@
+'''Solution for boolean evaluation problem'''
+
 def evaluate(exp):
+    'evaluate a simple expression with an operation and 2 operands'
     if len(exp) != 3:
         raise Exception("expression length must be 3: %s" % exp)
 
@@ -18,6 +21,7 @@ def evaluate(exp):
     raise Exception("Error evaluating expression : %s" % exp)
 
 def countWays(k, cache2):
+    'Count the number of ways to parenthesize k operations'
     if k in cache2:
         return cache2[k]
     if k <= 1:
@@ -30,11 +34,12 @@ def countWays(k, cache2):
 
 
 def countBoolEval(exp, cache1, cache2):
+    'returns a dict with the numbers of parenthesizations returning 0 or 1'
     if exp in cache1:
         return cache1[exp]
     if len(exp) == 3:
         res = evaluate(exp)
-        cache1[exp] = { 1: res, 0: 0 if res else 1 }
+        cache1[exp] = {1: res, 0: 0 if res else 1}
         return cache1[exp]
     else:
         numOps = len(exp) / 2
@@ -46,9 +51,9 @@ def countBoolEval(exp, cache1, cache2):
                 first, second = second, first
             if len(first) == 1:
                 if first == '1':
-                    res1 = { 1: 1, 0: 0 }
+                    res1 = {1: 1, 0: 0}
                 else:
-                    res1 = { 1: 0, 0: 1 }
+                    res1 = {1: 0, 0: 1}
             else:
                 # evaluate first and second and merge results
                 res1 = countBoolEval(first, cache1, cache2)
@@ -84,6 +89,7 @@ def countBoolEval(exp, cache1, cache2):
         return nways
 
 def test_countBoolEval():
+    'test for countBoolEval method'
     cache1, cache2 = {}, {}
     expression = '1^0|0|1'
     result = countBoolEval(expression, cache1, cache2)
