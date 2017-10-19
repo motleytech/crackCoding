@@ -83,16 +83,20 @@ def countBoolEval(exp, cache1, cache2):
         cache2[exp] = nways
         return nways
 
+def test_countBoolEval():
+    cache1, cache2 = {}, {}
+    expression = '1^0|0|1'
+    result = countBoolEval(expression, cache1, cache2)
+    print "%s :: %s" % (expression, result[0])
+    assert result[0] == 2
 
-cache2 = {}
-for x in range(20):
-    print x, countWays(x, cache2)
+    expression = '0&0&0&1^1|0'
+    result = countBoolEval(expression, cache1, cache2)
+    print "%s :: %s" % (expression, result[1])
+    assert result[1] == 10
 
+    print 'Test Passed'
 
-cache1, cache2 = {}, {}
-expression = '1^0|0|1'
-print "%s :: %s" % (expression, countBoolEval(expression, cache1, cache2)[1])
-
-expression = '0|0&0&0&1^1'
-print "%s :: %s" % (expression, countBoolEval(expression, cache1, cache2)[1])
+if __name__ == '__main__':
+    test_countBoolEval()
 
