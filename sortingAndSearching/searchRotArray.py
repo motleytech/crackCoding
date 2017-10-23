@@ -1,7 +1,7 @@
 'search in a rotated array'
 
 def searchRotArray(arr, t):
-    '''the modified binary search for a rotated array'''
+    'returns index if t found in arr, else None'
     # first find the inflexion point
     st = 0
     end = len(arr) - 1
