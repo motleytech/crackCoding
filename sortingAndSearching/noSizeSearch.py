@@ -1,6 +1,8 @@
 'binary search on a list where size of list is unknown'
 
 class Listy(object):
+    '''List class which returns -1 while accessing elements
+    beyond the end'''
     def __init__(self, data):
         self.data = data
 
@@ -11,11 +13,13 @@ class Listy(object):
 
 
 def bsearch(arr, t, st, end):
-    while st < end:
+    '''binary search which treats elements beyond the end as being larger'''
+    while st <= end:
         mid = (st + end) / 2
-        if arr[mid] > t or arr[mid] == -1:
+        val = arr[mid]
+        if val > t or val == -1:
             end = mid - 1
-        elif arr[mid] < t:
+        elif val < t:
             st = mid + 1
         else:
             return mid
@@ -36,6 +40,9 @@ def noSizeSearch(arr, t):
     if curr == t:
         return 2**scale - 1
 
+    # now we are beyond t or beyond the end
+    # we will use our custom binary search
+
     st = 2**(scale - 1) - 1
     end = 2**scale - 1
     return bsearch(arr, t, st, end)
@@ -43,6 +50,7 @@ def noSizeSearch(arr, t):
 
 
 def test_noSizeSearch():
+    'test for noSizeSearch'
     ls = Listy(range(1, 200))
 
     res = noSizeSearch(ls, 200)
