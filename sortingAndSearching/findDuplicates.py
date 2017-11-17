@@ -1,4 +1,4 @@
-'''find duplicates in a given array containing all numbers 1 - 32k,
+'''find duplicates in a given array containing numbers from 1 to N < 32k,
 using only 4k of memory'''
 
 import numpy as np
