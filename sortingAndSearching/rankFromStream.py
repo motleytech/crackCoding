@@ -40,7 +40,6 @@ class TreeWithRank(object):
         return self.rank + self.count - 1
 
 
-
 def test_TreeWithRank():
     'test for TreeWithRank'
     inp = [5, 1, 4, 4, 5, 9, 7, 13, 3]
