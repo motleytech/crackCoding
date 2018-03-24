@@ -8,46 +8,26 @@ In case there are odd numbered philosophers (so both first
 and last philosopher are even numbered), then
 philosopher 0 eats after the last.
 
-This avoids deadlocks, and when working correctly, does not
-even require the use of locks. However, the locks are
-still used in this program to prove that no deadlock occurs.
+This implementation uses semaphores to allocate forks.
+
 '''
 
 import threading
 import time
 
-numPhilosophers = 9
-locks = [threading.Lock() for _ in range(numPhilosophers)]
-eaten = [False] * numPhilosophers
-
-def pickLeftFork(k):
-    'acquire lock to pick up left fork'
-    locks[k].acquire()
-
-def pickRightFork(k):
-    'acquire lock to pick up right fork'
-    locks[(k-1)%numPhilosophers].acquire()
-
-def unpickLeftFork(k):
-    'release left fork'
-    locks[k].release()
-
-def unpickRightFork(k):
-    'release right fork'
-    locks[(k-1)%numPhilosophers].release()
+numPhilosophers = 3
+sems = [threading.Semaphore() for _ in range(numPhilosophers)]
 
 def startEating(k):
     'philosopher k starts eating'
-    while k%2 == 0 and (eaten[(k - 1) % numPhilosophers] == False or
-                        (k < numPhilosophers - 1 and eaten[(k + 1) % numPhilosophers] == False)):
-        time.sleep(0.001)
+    if k % 2 == 0 and numPhilosophers > 1:
+        if k != numPhilosophers - 1:
+            sems[k].acquire()
+        sems[(k-1) % numPhilosophers].acquire()
 
-    pickLeftFork(k)
-    pickRightFork(k)
     print '#%s eats' % k
-    unpickLeftFork(k)
-    unpickRightFork(k)
-    eaten[k] = True
+    sems[k].release()
+    sems[(k-1) % numPhilosophers].release()
 
 def main():
     'runs multiple simulations of philosophers eating'
@@ -61,8 +41,8 @@ def main():
     for th in threads:
         th.join()
 
-
 if __name__ == '__main__':
-    for y in range(1000):
+    for y in range(40):
+        [sem.acquire() for sem in sems]
         main()
     print 'done'
