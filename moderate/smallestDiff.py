@@ -37,6 +37,9 @@ def test():
     da, db = [1, 3, 15, 234, 11, 2], [23, 127, 235, 19, 8]
     assert findMinDiffPair(da, db) == (234, 235)
 
+    da, db = [1, 2, 11, 15], [4, 12, 19, 23, 127, 235]
+    assert findMinDiffPair(da, db) == (11, 12)
+
     print 'done'
 
 if __name__ == '__main__':
