@@ -1,11 +1,7 @@
-
-# of 2s in ones position = n / 10 + (1 if n % 10 > 1 else 0)
-# of 2s in 10s position = 10 * (n / 100) + (10 if (n % 100) / 10 > 2 else 0) + (n % 10 + 1 if (n % 100) / 10 == 2 else 0)
-# of 2s in 100s position = 100 * (n / 1000) + (100 if (n % 1000) / 100 > 2 else 0) + (n % 100 + 1 if (n % 1000) / 100 == 2 else 0)
-
-
+'count number of 2s appearing in all numbers between 0 and num'
 
 def count2Brute(num):
+    'brute force method to count 2s'
     count = 0
     for x in range(num + 1):
         count += str(x).count('2')
@@ -13,10 +9,30 @@ def count2Brute(num):
     return count
 
 def count2s(num):
-    pos = 0
+    'faster way to count 2s'
     count = 0
-    p1, p2 = 1, 10
-    while num > pow(10, pos):
-        p1, p2 = pow(10, pos), pow(10, pos+1)
-        count += pow(10, pos) * (num / pow(10, pos+1)) + (pow(10, pos) if (num % pow))
+    p1, p2 = 0, 1
+    while num > p2:
+        p1, p2 = p2, p2*10
+        count += ((p1 * (num / p2)) +
+                  (p1 if (num % p2) / p1 > 2 else 0) +
+                  ((num % p1 + 1) if (num % p2) / p1 == 2 else 0))
+    return count
 
+def test():
+    'test for count2s method'
+    from random import randint, seed
+
+    seed(200)
+
+    for x in range(1, 500):
+        assert count2Brute(x) == count2s(x)
+
+    for x in range(20):
+        val = randint(1000, 3000)
+        assert count2Brute(val) == count2s(val)
+
+    print 'Passed'
+
+if __name__ == '__main__':
+    test()
