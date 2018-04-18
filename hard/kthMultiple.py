@@ -67,6 +67,7 @@ def kthMult(k):
     while index < k:
         cval = cmax * 3
         for y in queue:
+
             if y*7 <= cmax:
                 queue.pop()
                 continue
@@ -91,6 +92,7 @@ def test():
     assert kthMult(5) == 9
     assert kthMult(20) == 175
     assert kthMult(2000) == 100913818359375
+    assert kthMult(20000) == 21471507292568485766075632247175
     print 'Passed'
 
 if __name__ == '__main__':
