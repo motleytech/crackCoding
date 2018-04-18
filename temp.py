@@ -1,10 +1,21 @@
-data = """How quickly can you find out what is so unusual about this paragraph? It looks so ordinary that you would think that nothing is wrong with it at all, and, in fact, nothing is. But it is unusual. Why? If you look at it, study it and think about it, you may find out, but I am not going to assist you in any way. You must do it without coaching. No doubt, if you work at it for long, it will dawn on you. Who knows? Go to work and try your skill. Par is about half an hour. So jump to it and try your skill at figuring it out. Good luck --don't blow your cool."""
+import os
 
-import string
-print string.letters
 
-numchars =  len([x for x in data if x in string.letters])
-freq = .12
-prob = pow(1 - freq, numchars)
-print prob
-print numchars
+root = r'C:\Users\nagarajan\Desktop\Natasha Daycare'
+
+records = []
+for fn in os.listdir(root):
+    fpath = os.path.join(root, fn)
+    records.append((os.path.getmtime(fpath), fn))
+
+records.sort(reverse=True)
+
+count = 1
+for t, fn in records:
+    opath = os.path.join(root, fn)
+    npath = os.path.join(root, '%03d.png' % count)
+    os.rename(opath, npath)
+    count += 1
+
+print records
+
