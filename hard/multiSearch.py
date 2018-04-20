@@ -47,17 +47,9 @@ def testSearch():
 
     text = "the cat ate the cot when it came in"
 
-    print search(text, data)
+    assert search(text, data) == [('cat', 4), ('ate', 8), ('cot', 16), ('cam', 28), ('came', 28)]
 
     print 'Passed'
 
-def testCreateLookup():
-    'test for createLookup method'
-    data = ['cat', 'cam', 'cot', 'ate', 'ace', 'came']
-
-    from pprint import pprint as pp
-    pp(createLookup(data))
-
 if __name__ == '__main__':
-    testCreateLookup()
     testSearch()
